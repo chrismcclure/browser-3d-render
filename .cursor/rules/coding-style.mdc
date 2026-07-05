@@ -1,0 +1,24 @@
+---
+description: TypeScript and React coding standards
+globs: "**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# Coding Style
+
+- Use TypeScript everywhere.
+- Use functional React components.
+- Use clear, descriptive naming for components, props, and types.
+- Keep functions and components focused on one job.
+- Prefer readability over cleverness.
+- Keep files reasonably small.
+- Avoid unnecessary comments — comment **why**, not **what**.
+- Prefer reusable props over duplicated code.
+- Avoid clever abstractions too early.
+- Prefer readable code over premature optimization.
+
+## React Three Fiber
+
+- Keep scene assembly in `components/world/`, not in `App.tsx`.
+- Put basic meshes in `components/primitives/`.
+- Use TypeScript types for world objects, rooms, walls, doors, furniture, and player behavior.

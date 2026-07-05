@@ -1,0 +1,31 @@
+---
+description: How AI should collaborate on this project
+alwaysApply: true
+---
+
+# Philosophy
+
+These are collaboration guidelines, not coding rules.
+
+## How to work on this project
+
+- Prefer small, iterative changes over large rewrites.
+- Avoid large refactors unless explicitly requested.
+- Do not introduce new dependencies unless they provide clear, lasting value.
+- Explain architectural decisions before making them when the choice is not obvious.
+- Ask before expanding scope beyond what was requested.
+- Match existing conventions — read surrounding code before writing new code.
+- Minimize diff size; do not change unrelated code.
+- Each change should leave the app runnable.
+- Do not over-engineer abstractions for features that do not exist yet.
+- Do not add tests, docs, or tooling unless requested or clearly needed.
+
+## When uncertain
+
+- Prefer the simpler approach.
+- Say what you plan to do and why before a multi-file change.
+- Flag trade-offs instead of silently choosing one path.
+
+## Long-term mindset
+
+This is a multi-year project. Favor maintainable structure over speed today.

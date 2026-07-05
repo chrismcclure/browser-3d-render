@@ -1,0 +1,52 @@
+---
+description: Architectural rules and folder organization
+alwaysApply: true
+---
+
+# Architecture
+
+Build a reusable world engine, not one-off scene code.
+
+## Principles
+
+- Keep files small.
+- Favor composition.
+- Prefer reusable components over hardcoded meshes.
+- Never let `App.tsx` become large — it should stay a thin entry point.
+- Build primitives first, then compose higher-level concepts.
+- Generate worlds from data; do not hardcode large scenes.
+- Organize code into components, data, types, and utilities.
+- Avoid over-engineering.
+- Build one milestone at a time.
+- Each change should leave the app running.
+
+## Folder structure
+
+```txt
+src/
+  components/
+    primitives/   # Floor, Wall, Door, Window, Box, simple furniture
+    world/        # Canvas, scene assembly, lighting setup
+    house/        # Room, House, FloorPlan
+    player/       # Camera, movement, controls
+  data/           # Layout and world definitions
+  types/          # Shared TypeScript interfaces
+  utils/          # Geometry, positioning, layout helpers
+```
+
+## Good vs bad
+
+```tsx
+// Good — reusable, data-friendly
+<Room width={16} depth={20} height={9} />
+<Wall length={16} height={9} position={[0, 4.5, -10]} />
+<Furniture type="couch" position={[2, 0, 4]} />
+
+// Bad — entire scene hardcoded in App.tsx
+```
+
+## Important constraint
+
+Do not manually model the whole house.
+
+The house should be generated from code and data.

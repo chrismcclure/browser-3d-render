@@ -1,0 +1,48 @@
+---
+description: Git workflow and Conventional Commits
+alwaysApply: true
+---
+
+# Git
+
+Use [Conventional Commits](https://www.conventionalcommits.org/):
+
+```txt
+<type>(scope): description
+```
+
+## Types
+
+`feat`, `fix`, `refactor`, `docs`, `chore`, `test`, `build`, `ci`
+
+## Examples
+
+```txt
+feat(world): add reusable room component
+refactor(primitives): extract floor component
+fix(camera): correct controls
+docs(roadmap): update milestones
+```
+
+## Before every commit
+
+- Ensure the project builds (`npm run build`).
+- Review the diff.
+- Remove debug code and temporary logging.
+- One logical change per commit.
+- Keep the subject line under 72 characters.
+- Never use vague messages like "fix stuff", "updates", or "wip".
+
+Only commit when explicitly asked.
+
+## Branches
+
+Use lowercase kebab-case with dashes. Never use spaces.
+
+```txt
+initial-build
+feat-room-generation
+fix-camera-controls
+```
+
+If a branch name would contain spaces, replace them with dashes (e.g. `initial build` → `initial-build`).

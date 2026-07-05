@@ -1,0 +1,38 @@
+---
+description: Project vision, stack, and long-term goals
+alwaysApply: true
+---
+
+# Project
+
+This is a browser-based 3D world engine — not a one-off game or demo scene.
+
+## Stack
+
+- React
+- TypeScript
+- Vite
+- Three.js
+- React Three Fiber
+- Drei
+
+## Vision
+
+Build reusable, data-driven 3D environments that can be extended over many years.
+
+The first environment is a walkable version of the owner's real house.
+
+We are building an **engine**, not just a game. The project should evolve toward:
+
+- Reusable world generation
+- Player interactions
+- Multiplayer
+- AI characters and behaviors
+
+## Core constraint
+
+Do not manually model entire environments in JSX.
+
+Worlds should be described through data structures and generated from reusable components.
+
+Treat one Three.js unit as roughly one foot.
