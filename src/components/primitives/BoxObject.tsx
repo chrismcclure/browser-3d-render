@@ -1,17 +1,23 @@
-type BoxObjectProps = {
-  position?: [number, number, number]
-  size?: number
+export type BoxObjectProps = {
+  width?: number
+  height?: number
+  depth?: number
   color?: string
+  position?: [number, number, number]
+  rotation?: [number, number, number]
 }
 
 export default function BoxObject({
-  position = [0, 0, 0],
-  size = 1,
+  width = 1,
+  height = 1,
+  depth = 1,
   color = 'green',
+  position = [0, 0, 0],
+  rotation = [0, 0, 0],
 }: BoxObjectProps) {
   return (
-    <mesh position={position}>
-      <boxGeometry args={[size, size, size]} />
+    <mesh position={position} rotation={rotation}>
+      <boxGeometry args={[width, height, depth]} />
       <meshStandardMaterial color={color} />
     </mesh>
   )

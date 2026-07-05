@@ -23,3 +23,4 @@ Cursor rules live in [`.cursor/rules/`](.cursor/rules/). Read them before making
 - `git.mdc` — Conventional Commits and commit checklist
 - `roadmap.mdc` — milestones and current progress
 - `philosophy.mdc` — how to collaborate on this codebase
+- `scope.mdc` — incremental scope and composition discipline
