@@ -1,8 +1,10 @@
 import BoxObject from '../primitives/BoxObject'
+import ObjectDebugLabel from '../debug/ObjectDebugLabel'
+import type { DebugNameProps } from '../../types/debug'
 
 const TOP_THICKNESS = 0.08
 
-type SimpleTVStandProps = {
+type SimpleTVStandProps = DebugNameProps & {
   position?: [number, number, number]
   width?: number
   depth?: number
@@ -13,6 +15,7 @@ type SimpleTVStandProps = {
 }
 
 export default function SimpleTVStand({
+  debugName,
   position = [0, 0, 0],
   width = 5,
   depth = 1.5,
@@ -70,6 +73,7 @@ export default function SimpleTVStand({
         color={color}
         position={[0, topY, 0]}
       />
+      <ObjectDebugLabel name={debugName} offset={[0, height + 0.25, 0]} />
     </group>
   )
 }

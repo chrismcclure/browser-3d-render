@@ -1,10 +1,12 @@
 import BoxObject from '../primitives/BoxObject'
+import ObjectDebugLabel from '../debug/ObjectDebugLabel'
+import type { DebugNameProps } from '../../types/debug'
 
 const LEG_SIZE = 0.12
 const TOP_THICKNESS = 0.08
 const SHELF_THICKNESS = 0.06
 
-type SimpleCoffeeTableProps = {
+type SimpleCoffeeTableProps = DebugNameProps & {
   position?: [number, number, number]
   width?: number
   depth?: number
@@ -15,6 +17,7 @@ type SimpleCoffeeTableProps = {
 }
 
 export default function SimpleCoffeeTable({
+  debugName,
   position = [0, 0, 0],
   width = 3.5,
   depth = 2,
@@ -67,6 +70,7 @@ export default function SimpleCoffeeTable({
           position={[0, shelfY, 0]}
         />
       )}
+      <ObjectDebugLabel name={debugName} offset={[0, height + 0.25, 0]} />
     </group>
   )
 }

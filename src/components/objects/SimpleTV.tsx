@@ -1,4 +1,6 @@
 import BoxObject from '../primitives/BoxObject'
+import ObjectDebugLabel from '../debug/ObjectDebugLabel'
+import type { DebugNameProps } from '../../types/debug'
 
 const SCREEN_DEPTH = 0.06
 const FRAME_THICKNESS = 0.12
@@ -6,7 +8,7 @@ const STAND_WIDTH = 0.8
 const STAND_DEPTH = 0.4
 const STAND_HEIGHT = 0.15
 
-type SimpleTVProps = {
+type SimpleTVProps = DebugNameProps & {
   position?: [number, number, number]
   width?: number
   height?: number
@@ -15,6 +17,7 @@ type SimpleTVProps = {
 }
 
 export default function SimpleTV({
+  debugName,
   position = [0, 0, 0],
   width = 4.5,
   height = 2.5,
@@ -50,6 +53,7 @@ export default function SimpleTV({
           position={[0, -height / 2 - STAND_HEIGHT / 2 - FRAME_THICKNESS, 0.1]}
         />
       )}
+      <ObjectDebugLabel name={debugName} offset={[0, height / 2 + 0.35, 0]} />
     </group>
   )
 }

@@ -1,16 +1,19 @@
 import BoxObject from '../primitives/BoxObject'
+import ObjectDebugLabel from '../debug/ObjectDebugLabel'
+import type { DebugNameProps } from '../../types/debug'
 
 const FUR_COLOR = '#d99040'
 const CHEST_COLOR = '#f4c896'
 const EAR_COLOR = '#e8a050'
 
-type SimpleCatProps = {
+type SimpleCatProps = DebugNameProps & {
   position?: [number, number, number]
   rotation?: [number, number, number]
   scale?: number | [number, number, number]
 }
 
 export default function SimpleCat({
+  debugName,
   position = [0, 0, 0],
   rotation = [0, 0, 0],
   scale = 1,
@@ -111,6 +114,7 @@ export default function SimpleCat({
         position={[0.04, 0.64, 0.76]}
         rotation={[0.55, 0.12, 0]}
       />
+      <ObjectDebugLabel name={debugName} offset={[0, 0.45, 0]} />
     </group>
   )
 }
