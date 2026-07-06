@@ -12,7 +12,7 @@ const COLORS = {
 }
 
 const WIDTH = 16
-const DEPTH = 14
+const DEPTH = 16
 const HEIGHT = 8
 
 const WINDOW_WIDTH = 10
@@ -22,7 +22,8 @@ const WINDOW_TOP = WINDOW_SILL + WINDOW_HEIGHT
 
 const ENTRY_WIDTH = 4
 const ENTRY_HEIGHT = 7
-const ENTRY_Z_START = 4
+const ENTRY_Z_START = 3
+const ENTRY_Z_END = ENTRY_Z_START + ENTRY_WIDTH
 const ENTRY_CENTER_Z = ENTRY_Z_START + ENTRY_WIDTH / 2
 
 type LivingRoomShellProps = {
@@ -41,6 +42,7 @@ export default function LivingRoomShell({
 
   const sideWallWidth = (WIDTH - WINDOW_WIDTH) / 2
   const backWallDepth = ENTRY_Z_START - -halfDepth
+  const frontWallDepth = halfDepth - ENTRY_Z_END
   const entryHeaderHeight = HEIGHT - ENTRY_HEIGHT
 
   return (
@@ -113,6 +115,13 @@ export default function LivingRoomShell({
         depth={ENTRY_WIDTH}
         color={COLORS.wall}
         position={[leftX, ENTRY_HEIGHT + entryHeaderHeight / 2, ENTRY_CENTER_Z]}
+      />
+      <BoxObject
+        width={WALL_THICKNESS}
+        height={HEIGHT}
+        depth={frontWallDepth}
+        color={COLORS.wall}
+        position={[leftX, HEIGHT / 2, ENTRY_Z_END + frontWallDepth / 2]}
       />
 
       <DoorOpening
