@@ -1,0 +1,23 @@
+---
+description: Categorize requests before implementation and stay in scope
+alwaysApply: true
+---
+
+# Task Types
+
+Every request should be categorized before implementation.
+
+Available task types:
+
+- **Build** — New components, features, or files
+- **Layout** — Positioning, spacing, and scene composition
+- **Refactor** — Restructure code without changing behavior
+- **Polish** — Visual tweaks, styling, and refinement
+- **Behavior** — Interaction, controls, and runtime logic
+- **Physics** — Collision, movement constraints, and simulation
+- **Data** — Types, schemas, and data-driven definitions
+- **Debug** — Investigate and fix bugs
+
+Identify the task type at the start of work and stay within its scope.
+
+If a request spans multiple task types, recommend splitting it into multiple tasks.

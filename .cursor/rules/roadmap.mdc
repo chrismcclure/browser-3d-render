@@ -1,0 +1,30 @@
+---
+description: Project milestones and current progress
+alwaysApply: true
+---
+
+# Roadmap
+
+Build in order. Do not skip ahead unless asked.
+
+| # | Milestone | Status |
+|---|-----------|--------|
+| 1 | Basic 3D Scene | **Complete** |
+| 2 | Reusable Primitives | Not started |
+| 3 | Room Generation | Not started |
+| 4 | House Layout | Not started |
+| 5 | Player Movement | Not started |
+| 6 | Collision | Not started |
+| 7 | Furniture | Not started |
+| 8 | Doors and Windows | Not started |
+| 9 | Lighting | Not started |
+| 10 | Interaction | Not started |
+| 11 | Multiplayer | Not started |
+| 12 | AI Characters | Not started |
+| 13 | Procedural World Generation | Not started |
+
+When starting work, confirm which milestone it belongs to.
+
+Prefer creating or updating one focused component per change.
+
+Before adding polish, make the structure reusable.

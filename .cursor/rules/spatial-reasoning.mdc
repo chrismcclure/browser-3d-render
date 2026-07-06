@@ -1,0 +1,15 @@
+---
+description: Spatial reasoning rules for placing objects in rooms
+alwaysApply: true
+---
+
+# Spatial Reasoning
+
+When placing objects in a room:
+
+- Furniture should never intersect other furniture.
+- Furniture should never intersect walls.
+- Maintain reasonable walking space between large objects.
+- Assume furniture should be usable by a person.
+- If placement is ambiguous, prefer layouts that maximize open floor space.
+- When in doubt, ask rather than guessing.

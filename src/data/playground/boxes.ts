@@ -1,0 +1,66 @@
+import type { BoxObjectProps } from '../../components/primitives/BoxObject'
+
+export const playgroundBoxes: BoxObjectProps[] = [
+  {
+    width: 1,
+    height: 1,
+    depth: 1,
+    color: 'green',
+    position: [0, 0.5, 0],
+  },
+  {
+    width: 3,
+    height: 0.5,
+    depth: 1.5,
+    color: '#e63946',
+    position: [-4, 0.25, 2],
+    rotation: [0, 0.2, 0],
+  },
+  {
+    width: 0.8,
+    height: 3,
+    depth: 0.8,
+    color: '#457b9d',
+    position: [3, 1.5, -2],
+  },
+  {
+    width: 2,
+    height: 1.5,
+    depth: 2,
+    color: '#f4a261',
+    position: [-2, 0.75, -4],
+    rotation: [0, Math.PI / 4, 0],
+  },
+  {
+    width: 4,
+    height: 0.3,
+    depth: 0.8,
+    color: '#e76f51',
+    position: [5, 0.15, 3],
+    rotation: [0.1, -0.3, 0.05],
+  },
+  {
+    width: 1.2,
+    height: 1.2,
+    depth: 1.2,
+    color: '#9b5de5',
+    position: [0, 0.6, 4],
+    rotation: [0.4, 0.8, 0.2],
+  },
+  {
+    width: 2,
+    height: 1,
+    depth: 0.5,
+    color: '#06d6a0',
+    position: [-5, 0.5, -1],
+    rotation: [0, Math.PI / 6, 0],
+  },
+  {
+    width: 0.6,
+    height: 0.9,
+    depth: 0.6,
+    color: '#ff006e',
+    position: [2, 0.45, 5],
+    rotation: [0.3, 0.5, 0.1],
+  },
+]

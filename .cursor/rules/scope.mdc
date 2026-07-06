@@ -1,0 +1,26 @@
+---
+description: Scope discipline for incremental development
+alwaysApply: true
+---
+
+# Scope Discipline
+
+Each prompt should introduce only one new concept.
+
+Prefer extending the current architecture over replacing it.
+
+Do not rewrite working code unless explicitly asked.
+
+Avoid generating large files.
+
+If a component grows beyond a few hundred lines or has multiple responsibilities, recommend splitting it into smaller components.
+
+Favor composition over inheritance.
+
+## Before implementing
+
+Ask:
+
+- Can this be built from existing components?
+- Can this become a reusable component?
+- Should this be data instead of code?
