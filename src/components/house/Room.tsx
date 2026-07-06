@@ -17,23 +17,23 @@ type RoomProps = {
   children?: ReactNode
 }
 
-export default function Room({
+type RoomStructureProps = Omit<RoomProps, 'children' | 'position'>
+
+function RoomStructure({
   width = 8,
   depth = 6,
   height = 8,
   wallColor = '#e8e4dc',
   floorColor = '#a08060',
   ceilingColor = '#f5f5f5',
-  position = [0, 0, 0],
   ceiling = true,
-  children,
-}: RoomProps) {
+}: RoomStructureProps) {
   const halfWidth = width / 2
   const halfDepth = depth / 2
   const wallY = height / 2
 
   return (
-    <group position={position}>
+    <>
       <Floor width={width} depth={depth} color={floorColor} />
 
       <BoxObject
@@ -74,7 +74,18 @@ export default function Room({
           position={[0, height - CEILING_THICKNESS / 2, 0]}
         />
       )}
+    </>
+  )
+}
 
+export default function Room({
+  position = [0, 0, 0],
+  children,
+  ...structureProps
+}: RoomProps) {
+  return (
+    <group position={position}>
+      <RoomStructure {...structureProps} />
       {children}
     </group>
   )

@@ -24,3 +24,5 @@ Cursor rules live in [`.cursor/rules/`](.cursor/rules/). Read them before making
 - `roadmap.mdc` — milestones and current progress
 - `philosophy.mdc` — how to collaborate on this codebase
 - `scope.mdc` — incremental scope and composition discipline
+- `spatial-reasoning.mdc` — furniture placement and clearance rules
+- `task-types.mdc` — categorize requests and stay in scope
