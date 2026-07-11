@@ -19,7 +19,8 @@ export default function InteractionPrompt({ message }: InteractionPromptProps) {
         fontSize: 13,
         lineHeight: 1.4,
         pointerEvents: 'none',
-        whiteSpace: 'nowrap',
+        whiteSpace: 'pre-line',
+        textAlign: 'center',
       }}
     >
       {message}

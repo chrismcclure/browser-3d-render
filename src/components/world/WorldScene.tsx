@@ -17,7 +17,8 @@ import useCatChat from '../../hooks/useCatChat'
 import useDeveloperMode from '../../hooks/useDeveloperMode'
 import usePortraitInspection from '../../hooks/usePortraitInspection'
 import {
-  CAT_INTERACTION_PROMPT,
+  CAT_SPIN_KEY_CODE,
+  getCatInteractionPrompt,
   isPlayerNearCat,
 } from '../../data/catInteraction'
 import { getInspectableByDisplayName } from '../../data/inspectables'
@@ -40,6 +41,7 @@ export default function WorldScene() {
     EMPTY_OBJECT_SELECTION,
   )
   const [tvScreenMode, setTvScreenMode] = useState<TvScreenMode>('video-page')
+  const [catSpinTrigger, setCatSpinTrigger] = useState(0)
   const {
     developerMode,
     toggleDeveloperMode,
@@ -98,7 +100,7 @@ export default function WorldScene() {
     )
 
   const interactionPrompt = canTalkToCat
-    ? CAT_INTERACTION_PROMPT
+    ? getCatInteractionPrompt()
     : inspectInteractionActive
       ? getInteractionPrompt(selectionState.name)
       : getInteractionPrompt(tvInteractionActive ? selectionState.name : null, {
@@ -120,6 +122,8 @@ export default function WorldScene() {
           closeChat()
         } else if (event.code === 'KeyE' && canTalkToCat && !modalOpen) {
           openChat()
+        } else if (event.code === CAT_SPIN_KEY_CODE && canTalkToCat && !modalOpen) {
+          setCatSpinTrigger((current) => current + 1)
         } else if (event.code === 'KeyE' && inspectInteractionActive && !modalOpen) {
           const inspectable = getInspectableByDisplayName(selectionState.name)
           if (inspectable) {
@@ -158,6 +162,11 @@ export default function WorldScene() {
 
       if (event.code === 'KeyE' && canTalkToCat && !modalOpen) {
         openChat()
+        return
+      }
+
+      if (event.code === CAT_SPIN_KEY_CODE && canTalkToCat && !modalOpen) {
+        setCatSpinTrigger((current) => current + 1)
         return
       }
 
@@ -212,7 +221,7 @@ export default function WorldScene() {
               <WorldDebugHelpers visible={helpersVisible} />
             ) : null}
             <LivingRoomShell />
-            <LivingRoomFurniture tvScreenMode={tvScreenMode} />
+            <LivingRoomFurniture tvScreenMode={tvScreenMode} catSpinTrigger={catSpinTrigger} />
             <FirstPersonController controlsEnabled={!modalOpen} onDebugUpdate={setDebugState} />
             <ObjectSelectionRaycaster enabled={!modalOpen} />
             <SelectionHudBridge onChange={handleSelectionChange} />

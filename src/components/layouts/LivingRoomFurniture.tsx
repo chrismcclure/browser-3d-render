@@ -3,7 +3,7 @@ import { INSPECTABLE_OBJECTS } from '../../data/inspectables'
 import SelectableRoot from '../debug/SelectableRoot'
 import SimpleAreaRug from '../objects/SimpleAreaRug'
 import SimpleArmchair from '../objects/SimpleArmchair'
-import SimpleCat from '../objects/SimpleCat'
+import ProfessorSpaghettio from '../objects/ProfessorSpaghettio'
 import SimpleCoffeeTable from '../objects/SimpleCoffeeTable'
 import FramedPicture from '../objects/FramedPicture'
 import SimpleRoundSideTable from '../objects/SimpleRoundSideTable'
@@ -16,11 +16,13 @@ import type { TvScreenMode } from '../../types/tvScreen'
 type LivingRoomFurnitureProps = {
   position?: [number, number, number]
   tvScreenMode?: TvScreenMode
+  catSpinTrigger?: number
 }
 
 export default function LivingRoomFurniture({
   position = [0, 0, 0],
   tvScreenMode,
+  catSpinTrigger = 0,
 }: LivingRoomFurnitureProps) {
   const { rug, mainSofa, sideSofa, armchairs, sideTable, coffeeTable, tvStand, tv, leftChairCat, knightPortrait } =
     livingRoomLayout
@@ -66,7 +68,11 @@ export default function LivingRoomFurniture({
       </SelectableRoot>
 
       <SelectableRoot debugName="Professor Spaghettio" interactable>
-        <SimpleCat {...leftChairCat} debugName="Professor Spaghettio" />
+        <ProfessorSpaghettio
+          {...leftChairCat}
+          spinTrigger={catSpinTrigger}
+          debugName="Professor Spaghettio"
+        />
       </SelectableRoot>
     </group>
   )
