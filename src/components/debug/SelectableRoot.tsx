@@ -18,7 +18,7 @@ export default function SelectableRoot({
   rotation,
 }: SelectableRootProps) {
   const groupRef = useRef<Group>(null)
-  const { selectedRoot } = useObjectSelection()
+  const { selectedRoot, highlightEnabled } = useObjectSelection()
   const isSelected = selectedRoot === groupRef.current
 
   useLayoutEffect(() => {
@@ -30,7 +30,7 @@ export default function SelectableRoot({
     group.userData.selectable = { debugName, interactable }
   }, [debugName, interactable])
 
-  useSelectionHighlight(groupRef, isSelected)
+  useSelectionHighlight(groupRef, isSelected && highlightEnabled)
 
   return (
     <group ref={groupRef} position={position} rotation={rotation}>

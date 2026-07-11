@@ -1,5 +1,6 @@
 import BoxObject from '../primitives/BoxObject'
 import ObjectDebugLabel from '../debug/ObjectDebugLabel'
+import SimpleCatFace from './SimpleCatFace'
 import type { DebugNameProps } from '../../types/debug'
 
 const FUR_COLOR = '#d99040'
@@ -76,19 +77,23 @@ export default function SimpleCat({
         position={[0, 0.58, -0.2]}
       />
 
+      <SimpleCatFace />
+
       <BoxObject
-        width={0.1}
-        height={0.14}
-        depth={0.08}
+        width={0.08}
+        height={0.17}
+        depth={0.07}
         color={EAR_COLOR}
-        position={[-0.11, 0.76, -0.2]}
+        position={[-0.13, 0.79, -0.21]}
+        rotation={[-0.15, 0, -0.35]}
       />
       <BoxObject
-        width={0.1}
-        height={0.14}
-        depth={0.08}
+        width={0.08}
+        height={0.17}
+        depth={0.07}
         color={EAR_COLOR}
-        position={[0.11, 0.76, -0.2]}
+        position={[0.13, 0.79, -0.21]}
+        rotation={[-0.15, 0, 0.35]}
       />
 
       <BoxObject

@@ -26,7 +26,7 @@ export default function DeveloperHud({ state, selection, developerMode = false }
         position: 'fixed',
         top: 12,
         left: 12,
-        zIndex: 10,
+        zIndex: 100,
         padding: '10px 12px',
         borderRadius: 6,
         background: 'rgba(0, 0, 0, 0.72)',

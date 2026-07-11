@@ -1,6 +1,7 @@
 const ROOM = {
   width: 16,
   depth: 16,
+  height: 8,
   wallThickness: 0.1,
 }
 
@@ -21,12 +22,22 @@ const tvStandZ = 0
 
 const leftChairX = -2.75
 const leftChairZ = frontZ - 1.5
+const sideTableZ = leftChairZ
 const leftChairInsideArmLocalX = -2.5 / 2 + 0.55 / 2
 const leftChairInsideArmLocalZ = 0.12
 const leftChairArmTopY = 0.38 + 0.22 + (2.8 - 0.38) * 0.45
 const leftChairCatX = leftChairX - leftChairInsideArmLocalX
 const leftChairCatZ = leftChairZ - leftChairInsideArmLocalZ
 const leftChairCatYaw = Math.atan2(-leftChairCatX, leftChairCatZ)
+
+const portraitWidth = 8 * 0.8 * 0.85
+const portraitHeight = portraitWidth * (1024 / 1536)
+const portraitFrameThickness = 0.1
+const portraitFrameDepth = 0.05
+const wallInnerZ = backZ + ROOM.wallThickness / 2
+const mainSofaBackTopY = 3
+const portraitCenterY = (mainSofaBackTopY + ROOM.height) / 2
+const portraitCenterZ = wallInnerZ + portraitFrameDepth / 2 + 0.005
 
 export const livingRoomLayout = {
   rug: {
@@ -59,6 +70,13 @@ export const livingRoomLayout = {
       rotation: [0, Math.PI, 0] as [number, number, number],
     },
   ],
+  sideTable: {
+    position: [0, 0, sideTableZ] as [number, number, number],
+    tabletopRadius: 0.65,
+    height: 1.55,
+    tabletopColor: '#ebe4d8',
+    frameColor: '#4a3528',
+  },
   coffeeTable: {
     position: [0, 0, 0] as [number, number, number],
   },
@@ -75,10 +93,20 @@ export const livingRoomLayout = {
     height: 2.5,
     wallMount: true,
     rotation: tvRotation,
+    screenMode: 'video-page' as const,
   },
   leftChairCat: {
     position: [leftChairCatX, leftChairArmTopY, leftChairCatZ] as [number, number, number],
     rotation: [0, leftChairCatYaw, 0] as [number, number, number],
     scale: 0.95 * 1.5,
+  },
+  knightPortrait: {
+    position: [0, portraitCenterY, portraitCenterZ] as [number, number, number],
+    rotation: [0, 0, 0] as [number, number, number],
+    width: portraitWidth,
+    height: portraitHeight,
+    frameThickness: portraitFrameThickness,
+    frameColor: '#4a3528',
+    imageSrc: '/assets/cat-knight.png',
   },
 }

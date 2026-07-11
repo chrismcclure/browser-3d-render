@@ -4,6 +4,15 @@ import { fetchCatDialogueFromOpenAI, parseConversationMessages } from './openaiC
 
 const API_PATH = '/api/cat-chat'
 
+function isCatChatRequest(url: string | undefined, method: string | undefined) {
+  if (method !== 'POST' || !url) {
+    return false
+  }
+
+  const pathname = url.split('?')[0]
+  return pathname === API_PATH
+}
+
 function sendJson(res: ServerResponse, statusCode: number, body: unknown) {
   res.statusCode = statusCode
   res.setHeader('Content-Type', 'application/json')
@@ -49,9 +58,14 @@ async function handleCatChatRequest(
 function attachCatChatMiddleware(
   apiKey: string | undefined,
   middlewares: { use: ViteDevServer['middlewares']['use'] },
+  logger?: { warn: (message: string) => void },
 ) {
+  if (!apiKey && logger) {
+    logger.warn('[cat-chat] OPENAI_API_KEY is not configured. Cat dialogue will fail.')
+  }
+
   middlewares.use((req, res, next) => {
-    if (req.url !== API_PATH || req.method !== 'POST') {
+    if (!isCatChatRequest(req.url, req.method)) {
       next()
       return
     }
@@ -64,10 +78,10 @@ export function catChatApiPlugin(apiKey: string | undefined): Plugin {
   return {
     name: 'cat-chat-api',
     configureServer(server) {
-      attachCatChatMiddleware(apiKey, server.middlewares)
+      attachCatChatMiddleware(apiKey, server.middlewares, server.config.logger)
     },
     configurePreviewServer(server: PreviewServer) {
-      attachCatChatMiddleware(apiKey, server.middlewares)
+      attachCatChatMiddleware(apiKey, server.middlewares, server.config.logger)
     },
   }
 }

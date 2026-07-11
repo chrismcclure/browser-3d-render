@@ -1,6 +1,8 @@
 import BoxObject from '../primitives/BoxObject'
 import ObjectDebugLabel from '../debug/ObjectDebugLabel'
+import TvScreenDisplay from './TvScreenDisplay'
 import type { DebugNameProps } from '../../types/debug'
+import type { TvScreenMode } from '../../types/tvScreen'
 
 const SCREEN_DEPTH = 0.06
 const FRAME_THICKNESS = 0.12
@@ -14,6 +16,7 @@ type SimpleTVProps = DebugNameProps & {
   height?: number
   rotation?: [number, number, number]
   wallMount?: boolean
+  screenMode?: TvScreenMode
 }
 
 export default function SimpleTV({
@@ -23,9 +26,9 @@ export default function SimpleTV({
   height = 2.5,
   rotation = [0, 0, 0],
   wallMount = false,
+  screenMode = 'video-page',
 }: SimpleTVProps) {
   const frameColor = '#2a2a2a'
-  const screenColor = '#111111'
 
   return (
     <group position={position} rotation={rotation}>
@@ -36,13 +39,8 @@ export default function SimpleTV({
         color={frameColor}
         position={[0, 0, 0]}
       />
-      <BoxObject
-        width={width}
-        height={height}
-        depth={SCREEN_DEPTH + 0.02}
-        color={screenColor}
-        position={[0, 0, 0.01]}
-      />
+
+      <TvScreenDisplay width={width} height={height} mode={screenMode} />
 
       {!wallMount && (
         <BoxObject

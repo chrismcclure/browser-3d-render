@@ -16,6 +16,7 @@ import { getSelectableUserData } from './selectionUtils'
 type SelectionContextValue = {
   selection: ObjectSelectionState
   selectedRoot: Object3D | null
+  highlightEnabled: boolean
   setSelectionFromRaycast: (root: Object3D | null, distance: number | null) => void
 }
 
@@ -23,6 +24,7 @@ const SelectionContext = createContext<SelectionContextValue | null>(null)
 
 type SelectionProviderProps = {
   children: ReactNode
+  highlightEnabled?: boolean
 }
 
 export function useObjectSelection() {
@@ -33,7 +35,10 @@ export function useObjectSelection() {
   return context
 }
 
-export default function SelectionProvider({ children }: SelectionProviderProps) {
+export default function SelectionProvider({
+  children,
+  highlightEnabled = false,
+}: SelectionProviderProps) {
   const [selection, setSelection] = useState<ObjectSelectionState>(EMPTY_OBJECT_SELECTION)
   const [selectedRoot, setSelectedRoot] = useState<Object3D | null>(null)
 
@@ -73,9 +78,10 @@ export default function SelectionProvider({ children }: SelectionProviderProps) 
     () => ({
       selection,
       selectedRoot,
+      highlightEnabled,
       setSelectionFromRaycast,
     }),
-    [selection, selectedRoot, setSelectionFromRaycast],
+    [highlightEnabled, selection, selectedRoot, setSelectionFromRaycast],
   )
 
   return <SelectionContext.Provider value={value}>{children}</SelectionContext.Provider>
