@@ -1,4 +1,5 @@
 import { livingRoomLayout } from '../../layouts/livingRoomLayout'
+import { INSPECTABLE_OBJECTS } from '../../data/inspectables'
 import SelectableRoot from '../debug/SelectableRoot'
 import SimpleAreaRug from '../objects/SimpleAreaRug'
 import SimpleArmchair from '../objects/SimpleArmchair'
@@ -32,7 +33,7 @@ export default function LivingRoomFurniture({
         <SimpleSofa {...mainSofa} debugName="Large Sofa" />
       </SelectableRoot>
 
-      <SelectableRoot debugName="Knight Portrait">
+      <SelectableRoot debugName={INSPECTABLE_OBJECTS.KNIGHT_PORTRAIT} interactable>
         <FramedPicture {...knightPortrait} />
       </SelectableRoot>
 

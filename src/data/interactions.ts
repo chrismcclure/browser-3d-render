@@ -1,4 +1,5 @@
 import { CAT_INTERACTION_PROMPT } from './catInteraction'
+import { getInspectableByDisplayName } from './inspectables'
 
 export const INTERACTION_MAX_DISTANCE = 4
 
@@ -34,7 +35,24 @@ export function getInteractionPrompt(
     return options.tvScreenOn ? 'Press E to turn off the TV' : 'Press E to turn on the TV'
   }
 
+  const inspectable = getInspectableByDisplayName(targetName)
+  if (inspectable) {
+    return inspectable.interactionPrompt
+  }
+
   return null
+}
+
+export function isInspectInteractionActive(
+  crosshairTarget: string | null,
+  crosshairDistance: number | null,
+  crosshairInteractable: boolean | null,
+): boolean {
+  return (
+    crosshairInteractable === true &&
+    isWithinInteractionRange(crosshairDistance) &&
+    getInspectableByDisplayName(crosshairTarget) !== null
+  )
 }
 
 export function isTvInteractionActive(
