@@ -93,7 +93,7 @@ export const livingRoomLayout = {
     height: 2.5,
     wallMount: true,
     rotation: tvRotation,
-    screenMode: 'video-page' as const,
+    screenMode: 'off' as const,
   },
   leftChairCat: {
     position: [leftChairCatX, leftChairArmTopY, leftChairCatZ] as [number, number, number],

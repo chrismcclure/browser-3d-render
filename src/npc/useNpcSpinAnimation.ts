@@ -6,13 +6,13 @@ import type { Group } from 'three'
 const SPIN_DURATION = 1.25
 const BOB_HEIGHT = 0.06
 
-type UseProfessorSpinAnimationOptions = {
+type UseNpcSpinAnimationOptions = {
   spinTrigger?: number
 }
 
-export default function useProfessorSpinAnimation(
+export default function useNpcSpinAnimation(
   spinGroupRef: RefObject<Group | null>,
-  { spinTrigger = 0 }: UseProfessorSpinAnimationOptions = {},
+  { spinTrigger = 0 }: UseNpcSpinAnimationOptions = {},
 ) {
   const isSpinningRef = useRef(false)
   const spinStartTimeRef = useRef<number | null>(null)

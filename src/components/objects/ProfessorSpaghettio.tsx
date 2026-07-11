@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { Group } from 'three'
 import SimpleCat from './SimpleCat'
-import useProfessorSpinAnimation from '../../npc/useProfessorSpinAnimation'
+import useNpcSpinAnimation from '../../npc/useNpcSpinAnimation'
 import type { DebugNameProps } from '../../types/debug'
 
 type ProfessorSpaghettioProps = DebugNameProps & {
@@ -22,7 +22,7 @@ export default function ProfessorSpaghettio({
   const scaleVector: [number, number, number] =
     typeof scale === 'number' ? [scale, scale, scale] : scale
 
-  useProfessorSpinAnimation(spinGroupRef, { spinTrigger })
+  useNpcSpinAnimation(spinGroupRef, { spinTrigger })
 
   return (
     <group position={position} rotation={rotation} scale={scaleVector}>
