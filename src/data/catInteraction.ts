@@ -3,10 +3,13 @@ import { livingRoomLayout } from '../layouts/livingRoomLayout'
 export const CAT_SPIN_KEY = 'F'
 export const CAT_SPIN_KEY_CODE = 'KeyF'
 
+export const CAT_LEG_RAISE_KEY = 'X'
+export const CAT_LEG_RAISE_KEY_CODE = 'KeyX'
+
 export const CAT_INTERACTION_PROMPT = 'Press E to talk to Professor Spaghettio'
 
 export function getCatInteractionPrompt(): string {
-  return `Press E to talk\nPress ${CAT_SPIN_KEY} to make Professor Spaghettio spin`
+  return `Press E to talk\nPress ${CAT_SPIN_KEY} to make Professor Spaghettio spin\nPress ${CAT_LEG_RAISE_KEY} to stretch`
 }
 
 export const CAT_CHAT_ERROR_PREFIX = 'Professor Spaghettio flicks his tail and refuses to speak:'

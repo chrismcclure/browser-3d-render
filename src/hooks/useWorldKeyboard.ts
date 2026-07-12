@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { CAT_SPIN_KEY_CODE } from '../data/catInteraction'
+import { CAT_LEG_RAISE_KEY_CODE, CAT_SPIN_KEY_CODE } from '../data/catInteraction'
 import { getInspectableByDisplayName } from '../data/inspectables'
 import { DEVELOPER_MODE_AVAILABLE } from '../debug/developerMode'
 import type { InspectableConfig } from '../types/inspection'
@@ -10,6 +10,7 @@ type UseWorldKeyboardParams = {
   chatOpen: boolean
   portraitPanelOpen: boolean
   canTalkToCat: boolean
+  catStretchBusy: boolean
   inspectInteractionActive: boolean
   tvInteractionActive: boolean
   selectionName: string | null
@@ -22,6 +23,7 @@ type UseWorldKeyboardParams = {
   openPortraitPanel: (inspectable: InspectableConfig) => Promise<void>
   closePortraitPanel: () => void
   onCatSpin: () => void
+  onCatLegRaise: () => void
   onTvToggle: () => void
 }
 
@@ -31,6 +33,7 @@ export default function useWorldKeyboard({
   chatOpen,
   portraitPanelOpen,
   canTalkToCat,
+  catStretchBusy,
   inspectInteractionActive,
   tvInteractionActive,
   selectionName,
@@ -43,6 +46,7 @@ export default function useWorldKeyboard({
   openPortraitPanel,
   closePortraitPanel,
   onCatSpin,
+  onCatLegRaise,
   onTvToggle,
 }: UseWorldKeyboardParams) {
   useEffect(() => {
@@ -64,13 +68,20 @@ export default function useWorldKeyboard({
       }
 
       if (!modalOpen) {
-        if (event.code === 'KeyE' && canTalkToCat) {
+        const catInteractionsBlocked = canTalkToCat && catStretchBusy
+
+        if (event.code === 'KeyE' && canTalkToCat && !catInteractionsBlocked) {
           openChat()
           return
         }
 
-        if (event.code === CAT_SPIN_KEY_CODE && canTalkToCat) {
+        if (event.code === CAT_SPIN_KEY_CODE && canTalkToCat && !catInteractionsBlocked) {
           onCatSpin()
+          return
+        }
+
+        if (event.code === CAT_LEG_RAISE_KEY_CODE && canTalkToCat && !catInteractionsBlocked) {
+          onCatLegRaise()
           return
         }
 
@@ -110,6 +121,7 @@ export default function useWorldKeyboard({
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [
     canTalkToCat,
+    catStretchBusy,
     chatOpen,
     closeChat,
     closePortraitPanel,
@@ -117,6 +129,7 @@ export default function useWorldKeyboard({
     inspectInteractionActive,
     modalOpen,
     onCatSpin,
+    onCatLegRaise,
     onTvToggle,
     openChat,
     openPortraitPanel,

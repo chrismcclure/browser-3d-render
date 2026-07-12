@@ -17,12 +17,16 @@ type LivingRoomFurnitureProps = {
   position?: [number, number, number]
   tvScreenMode?: TvScreenMode
   catSpinTrigger?: number
+  catLegRaiseTrigger?: number
+  onCatStretchActiveChange?: (active: boolean) => void
 }
 
 export default function LivingRoomFurniture({
   position = [0, 0, 0],
   tvScreenMode,
   catSpinTrigger = 0,
+  catLegRaiseTrigger = 0,
+  onCatStretchActiveChange,
 }: LivingRoomFurnitureProps) {
   const { rug, mainSofa, sideSofa, armchairs, sideTable, coffeeTable, tvStand, tv, leftChairCat, knightPortrait } =
     livingRoomLayout
@@ -71,6 +75,8 @@ export default function LivingRoomFurniture({
         <ProfessorSpaghettio
           {...leftChairCat}
           spinTrigger={catSpinTrigger}
+          legRaiseTrigger={catLegRaiseTrigger}
+          onStretchActiveChange={onCatStretchActiveChange}
           debugName="Professor Spaghettio"
         />
       </SelectableRoot>

@@ -4,16 +4,14 @@ const EYE_COLOR = '#111111'
 const NOSE_COLOR = '#e8a0b0'
 const WHISKER_COLOR = '#efe6d8'
 
-const HEAD_CENTER_Y = 0.58
-const HEAD_CENTER_Z = -0.2
 const HEAD_HALF_DEPTH = 0.15
-const FACE_Z = HEAD_CENTER_Z - HEAD_HALF_DEPTH - 0.012
+const FACE_Z = -HEAD_HALF_DEPTH - 0.012
 
 const EYE_SIZE = 0.045
 const EYE_SPREAD = 0.075
-const EYE_Y = HEAD_CENTER_Y + 0.025
+const EYE_Y = 0.025
 
-const NOSE_Y = HEAD_CENTER_Y - 0.055
+const NOSE_Y = -0.055
 const NOSE_X = 0
 const NOSE_Z = FACE_Z - 0.01
 

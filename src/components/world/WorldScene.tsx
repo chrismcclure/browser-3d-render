@@ -29,6 +29,8 @@ export default function WorldScene() {
   )
   const [tvScreenMode, setTvScreenMode] = useState<TvScreenMode>('off')
   const [catSpinTrigger, setCatSpinTrigger] = useState(0)
+  const [catLegRaiseTrigger, setCatLegRaiseTrigger] = useState(0)
+  const [catStretchBusy, setCatStretchBusy] = useState(false)
   const {
     developerMode,
     toggleDeveloperMode,
@@ -64,6 +66,14 @@ export default function WorldScene() {
     setCatSpinTrigger((current) => current + 1)
   }, [])
 
+  const onCatLegRaise = useCallback(() => {
+    setCatLegRaiseTrigger((current) => current + 1)
+  }, [])
+
+  const onCatStretchActiveChange = useCallback((active: boolean) => {
+    setCatStretchBusy(active)
+  }, [])
+
   const onTvToggle = useCallback(() => {
     setTvScreenMode((current) => (current === 'off' ? 'video-page' : 'off'))
   }, [])
@@ -74,6 +84,7 @@ export default function WorldScene() {
     chatOpen,
     portraitPanelOpen,
     canTalkToCat,
+    catStretchBusy,
     inspectInteractionActive,
     tvInteractionActive,
     selectionName: selectionState.name,
@@ -86,6 +97,7 @@ export default function WorldScene() {
     openPortraitPanel,
     closePortraitPanel,
     onCatSpin,
+    onCatLegRaise,
     onTvToggle,
   })
 
@@ -106,7 +118,12 @@ export default function WorldScene() {
               <WorldDebugHelpers visible={helpersVisible} />
             ) : null}
             <LivingRoomShell />
-            <LivingRoomFurniture tvScreenMode={tvScreenMode} catSpinTrigger={catSpinTrigger} />
+            <LivingRoomFurniture
+              tvScreenMode={tvScreenMode}
+              catSpinTrigger={catSpinTrigger}
+              catLegRaiseTrigger={catLegRaiseTrigger}
+              onCatStretchActiveChange={onCatStretchActiveChange}
+            />
             <FirstPersonController controlsEnabled={!modalOpen} onDebugUpdate={setDebugState} />
             <ObjectSelectionRaycaster enabled={!modalOpen} />
             <SelectionHudBridge onChange={setSelectionState} />
