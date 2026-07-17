@@ -1,39 +1,85 @@
 import { livingRoomLayout } from '../../layouts/livingRoomLayout'
+import { INSPECTABLE_OBJECTS } from '../../data/inspectables'
+import SelectableRoot from '../debug/SelectableRoot'
 import SimpleAreaRug from '../objects/SimpleAreaRug'
 import SimpleArmchair from '../objects/SimpleArmchair'
-import SimpleCat from '../objects/SimpleCat'
+import ProfessorSpaghettio from '../objects/ProfessorSpaghettio'
 import SimpleCoffeeTable from '../objects/SimpleCoffeeTable'
+import FramedPicture from '../objects/FramedPicture'
+import SimpleRoundSideTable from '../objects/SimpleRoundSideTable'
 import SimpleSofa from '../objects/SimpleSofa'
 import SimpleTV from '../objects/SimpleTV'
 import SimpleTVStand from '../objects/SimpleTVStand'
 
+import type { TvScreenMode } from '../../types/tvScreen'
+
 type LivingRoomFurnitureProps = {
   position?: [number, number, number]
+  tvScreenMode?: TvScreenMode
+  catSpinTrigger?: number
+  catLegRaiseTrigger?: number
+  onCatStretchActiveChange?: (active: boolean) => void
 }
 
 export default function LivingRoomFurniture({
   position = [0, 0, 0],
+  tvScreenMode,
+  catSpinTrigger = 0,
+  catLegRaiseTrigger = 0,
+  onCatStretchActiveChange,
 }: LivingRoomFurnitureProps) {
-  const { rug, mainSofa, sideSofa, armchairs, coffeeTable, tvStand, tv, leftChairCat } =
+  const { rug, mainSofa, sideSofa, armchairs, sideTable, coffeeTable, tvStand, tv, leftChairCat, knightPortrait } =
     livingRoomLayout
 
   return (
     <group position={position}>
       <SimpleAreaRug {...rug} />
 
-      <SimpleSofa {...mainSofa} />
-      <SimpleSofa {...sideSofa} />
+      <SelectableRoot debugName="Large Sofa">
+        <SimpleSofa {...mainSofa} debugName="Large Sofa" />
+      </SelectableRoot>
 
-      {armchairs.map((armchair, index) => (
-        <SimpleArmchair key={index} {...armchair} />
-      ))}
+      <SelectableRoot debugName={INSPECTABLE_OBJECTS.KNIGHT_PORTRAIT} interactable>
+        <FramedPicture {...knightPortrait} />
+      </SelectableRoot>
 
-      <SimpleCoffeeTable {...coffeeTable} />
+      <SelectableRoot debugName="Small Sofa">
+        <SimpleSofa {...sideSofa} debugName="Small Sofa" />
+      </SelectableRoot>
 
-      <SimpleTVStand {...tvStand} />
-      <SimpleTV {...tv} />
+      <SelectableRoot debugName="Chair Left">
+        <SimpleArmchair {...armchairs[0]} debugName="Chair Left" />
+      </SelectableRoot>
 
-      <SimpleCat {...leftChairCat} />
+      <SelectableRoot debugName="Chair Right">
+        <SimpleArmchair {...armchairs[1]} debugName="Chair Right" />
+      </SelectableRoot>
+
+      <SelectableRoot debugName="Side Table">
+        <SimpleRoundSideTable {...sideTable} />
+      </SelectableRoot>
+
+      <SelectableRoot debugName="Coffee Table">
+        <SimpleCoffeeTable {...coffeeTable} debugName="Coffee Table" />
+      </SelectableRoot>
+
+      <SelectableRoot debugName="TV Stand">
+        <SimpleTVStand {...tvStand} debugName="TV Stand" />
+      </SelectableRoot>
+
+      <SelectableRoot debugName="TV" interactable>
+        <SimpleTV {...tv} screenMode={tvScreenMode ?? tv.screenMode} debugName="TV" />
+      </SelectableRoot>
+
+      <SelectableRoot debugName="Professor Spaghettio" interactable>
+        <ProfessorSpaghettio
+          {...leftChairCat}
+          spinTrigger={catSpinTrigger}
+          legRaiseTrigger={catLegRaiseTrigger}
+          onStretchActiveChange={onCatStretchActiveChange}
+          debugName="Professor Spaghettio"
+        />
+      </SelectableRoot>
     </group>
   )
 }

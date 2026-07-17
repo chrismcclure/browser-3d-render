@@ -43,11 +43,15 @@ export function isWalkablePosition(x: number, z: number, radius = PLAYER_RADIUS)
   return true
 }
 
+const sideTableZ = frontZ - 1.5
+const sideTableDiameter = 1.3
+
 export const livingRoomFurnitureCollisions: CollisionBox[] = [
   boxFromCenterSize(0, backZ + 1.85, 8, 3.5),
   boxFromRotatedCenterSize(rightX - 2.05, -0.2, 6, 3.5, -Math.PI / 2),
   boxFromRotatedCenterSize(-2.75, frontZ - 1.5, 2.5, 2.5, Math.PI),
   boxFromRotatedCenterSize(2.75, frontZ - 1.5, 2.5, 2.5, Math.PI),
+  boxFromCenterSize(0, sideTableZ, sideTableDiameter, sideTableDiameter),
   boxFromCenterSize(0, 0, 3.5, 2),
   boxFromRotatedCenterSize(tvStandX, 0, 5, tvStandDepth, -Math.PI / 2),
 ]

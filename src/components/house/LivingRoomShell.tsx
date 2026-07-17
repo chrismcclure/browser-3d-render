@@ -2,6 +2,8 @@ import BoxObject from '../primitives/BoxObject'
 import Floor from '../primitives/Floor'
 import DoorOpening from '../house/DoorOpening'
 import WindowOpening from '../house/WindowOpening'
+import ObjectDebugLabel from '../debug/ObjectDebugLabel'
+import SelectableRoot from '../debug/SelectableRoot'
 
 const WALL_THICKNESS = 0.1
 
@@ -47,89 +49,92 @@ export default function LivingRoomShell({
 
   return (
     <group position={position}>
-      <Floor width={WIDTH} depth={DEPTH} color={COLORS.floor} />
+      <SelectableRoot debugName="Room">
+        <ObjectDebugLabel name="Room" offset={[0, HEIGHT + 0.5, 0]} />
+        <Floor width={WIDTH} depth={DEPTH} color={COLORS.floor} />
 
-      <BoxObject
-        width={WIDTH}
-        height={HEIGHT}
-        depth={WALL_THICKNESS}
-        color={COLORS.wall}
-        position={[0, HEIGHT / 2, backZ]}
-      />
+        <BoxObject
+          width={WIDTH}
+          height={HEIGHT}
+          depth={WALL_THICKNESS}
+          color={COLORS.wall}
+          position={[0, HEIGHT / 2, backZ]}
+        />
 
-      <BoxObject
-        width={WALL_THICKNESS}
-        height={HEIGHT}
-        depth={DEPTH}
-        color={COLORS.wall}
-        position={[rightX, HEIGHT / 2, 0]}
-      />
+        <BoxObject
+          width={WALL_THICKNESS}
+          height={HEIGHT}
+          depth={DEPTH}
+          color={COLORS.wall}
+          position={[rightX, HEIGHT / 2, 0]}
+        />
 
-      <BoxObject
-        width={sideWallWidth}
-        height={HEIGHT}
-        depth={WALL_THICKNESS}
-        color={COLORS.wall}
-        position={[-halfWidth + sideWallWidth / 2, HEIGHT / 2, frontZ]}
-      />
-      <BoxObject
-        width={sideWallWidth}
-        height={HEIGHT}
-        depth={WALL_THICKNESS}
-        color={COLORS.wall}
-        position={[halfWidth - sideWallWidth / 2, HEIGHT / 2, frontZ]}
-      />
-      <BoxObject
-        width={WINDOW_WIDTH}
-        height={WINDOW_SILL}
-        depth={WALL_THICKNESS}
-        color={COLORS.wall}
-        position={[0, WINDOW_SILL / 2, frontZ]}
-      />
-      <BoxObject
-        width={WINDOW_WIDTH}
-        height={HEIGHT - WINDOW_TOP}
-        depth={WALL_THICKNESS}
-        color={COLORS.wall}
-        position={[0, WINDOW_TOP + (HEIGHT - WINDOW_TOP) / 2, frontZ]}
-      />
+        <BoxObject
+          width={sideWallWidth}
+          height={HEIGHT}
+          depth={WALL_THICKNESS}
+          color={COLORS.wall}
+          position={[-halfWidth + sideWallWidth / 2, HEIGHT / 2, frontZ]}
+        />
+        <BoxObject
+          width={sideWallWidth}
+          height={HEIGHT}
+          depth={WALL_THICKNESS}
+          color={COLORS.wall}
+          position={[halfWidth - sideWallWidth / 2, HEIGHT / 2, frontZ]}
+        />
+        <BoxObject
+          width={WINDOW_WIDTH}
+          height={WINDOW_SILL}
+          depth={WALL_THICKNESS}
+          color={COLORS.wall}
+          position={[0, WINDOW_SILL / 2, frontZ]}
+        />
+        <BoxObject
+          width={WINDOW_WIDTH}
+          height={HEIGHT - WINDOW_TOP}
+          depth={WALL_THICKNESS}
+          color={COLORS.wall}
+          position={[0, WINDOW_TOP + (HEIGHT - WINDOW_TOP) / 2, frontZ]}
+        />
 
-      <WindowOpening
-        width={WINDOW_WIDTH}
-        height={WINDOW_HEIGHT}
-        sillHeight={WINDOW_SILL}
-        trimColor={COLORS.trim}
-        position={[0, 0, frontZ]}
-      />
+        <BoxObject
+          width={WALL_THICKNESS}
+          height={HEIGHT}
+          depth={backWallDepth}
+          color={COLORS.wall}
+          position={[leftX, HEIGHT / 2, -halfDepth + backWallDepth / 2]}
+        />
+        <BoxObject
+          width={WALL_THICKNESS}
+          height={entryHeaderHeight}
+          depth={ENTRY_WIDTH}
+          color={COLORS.wall}
+          position={[leftX, ENTRY_HEIGHT + entryHeaderHeight / 2, ENTRY_CENTER_Z]}
+        />
+        <BoxObject
+          width={WALL_THICKNESS}
+          height={HEIGHT}
+          depth={frontWallDepth}
+          color={COLORS.wall}
+          position={[leftX, HEIGHT / 2, ENTRY_Z_END + frontWallDepth / 2]}
+        />
+      </SelectableRoot>
 
-      <BoxObject
-        width={WALL_THICKNESS}
-        height={HEIGHT}
-        depth={backWallDepth}
-        color={COLORS.wall}
-        position={[leftX, HEIGHT / 2, -halfDepth + backWallDepth / 2]}
-      />
-      <BoxObject
-        width={WALL_THICKNESS}
-        height={entryHeaderHeight}
-        depth={ENTRY_WIDTH}
-        color={COLORS.wall}
-        position={[leftX, ENTRY_HEIGHT + entryHeaderHeight / 2, ENTRY_CENTER_Z]}
-      />
-      <BoxObject
-        width={WALL_THICKNESS}
-        height={HEIGHT}
-        depth={frontWallDepth}
-        color={COLORS.wall}
-        position={[leftX, HEIGHT / 2, ENTRY_Z_END + frontWallDepth / 2]}
-      />
+      <SelectableRoot debugName="Window" position={[0, 0, frontZ]}>
+        <WindowOpening
+          width={WINDOW_WIDTH}
+          height={WINDOW_HEIGHT}
+          sillHeight={WINDOW_SILL}
+          trimColor={COLORS.trim}
+        />
+        <ObjectDebugLabel name="Window" offset={[0, WINDOW_TOP + 0.5, 0]} />
+      </SelectableRoot>
 
-      <DoorOpening
-        width={ENTRY_WIDTH}
-        height={ENTRY_HEIGHT}
-        trimColor={COLORS.trim}
-        position={[leftX, 0, ENTRY_CENTER_Z]}
-      />
+      <SelectableRoot debugName="Door" position={[leftX, 0, ENTRY_CENTER_Z]}>
+        <DoorOpening width={ENTRY_WIDTH} height={ENTRY_HEIGHT} trimColor={COLORS.trim} />
+        <ObjectDebugLabel name="Door" offset={[0, ENTRY_HEIGHT + 0.5, 0]} />
+      </SelectableRoot>
     </group>
   )
 }

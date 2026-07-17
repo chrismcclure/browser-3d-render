@@ -1,11 +1,13 @@
 import BoxObject from '../primitives/BoxObject'
+import ObjectDebugLabel from '../debug/ObjectDebugLabel'
+import type { DebugNameProps } from '../../types/debug'
 
 const ARM_WIDTH = 0.55
 const BASE_HEIGHT = 0.38
 const CUSHION_HEIGHT = 0.22
 const BACK_THICKNESS = 0.4
 
-type SimpleArmchairProps = {
+type SimpleArmchairProps = DebugNameProps & {
   position?: [number, number, number]
   width?: number
   depth?: number
@@ -15,6 +17,7 @@ type SimpleArmchairProps = {
 }
 
 export default function SimpleArmchair({
+  debugName,
   position = [0, 0, 0],
   width = 2.5,
   depth = 2.5,
@@ -69,6 +72,7 @@ export default function SimpleArmchair({
         color={color}
         position={[0, BASE_HEIGHT + CUSHION_HEIGHT / 2, BACK_THICKNESS / 2 + 0.08]}
       />
+      <ObjectDebugLabel name={debugName} offset={[0, height + 0.25, 0]} />
     </group>
   )
 }

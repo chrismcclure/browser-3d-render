@@ -1,10 +1,13 @@
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import type { Plugin, PreviewServer, ViteDevServer } from 'vite'
-import { fetchCatDialogueFromOpenAI, parseConversationMessages } from './openaiCatChat.js'
+import {
+  fetchPortraitHistoryFromOpenAI,
+  parseHistoryGeneratorId,
+} from './openaiPortraitHistory.js'
 
-const API_PATH = '/api/cat-chat'
+const API_PATH = '/api/portrait-history'
 
-function isCatChatRequest(url: string | undefined, method: string | undefined) {
+function isPortraitHistoryRequest(url: string | undefined, method: string | undefined) {
   if (method !== 'POST' || !url) {
     return false
   }
@@ -39,49 +42,52 @@ function readJsonBody(req: IncomingMessage): Promise<unknown> {
   })
 }
 
-async function handleCatChatRequest(
+async function handlePortraitHistoryRequest(
   apiKey: string | undefined,
   req: IncomingMessage,
   res: ServerResponse,
 ) {
   try {
     const body = await readJsonBody(req)
-    const messages = parseConversationMessages(body)
-    const message = await fetchCatDialogueFromOpenAI(apiKey ?? '', messages)
-    sendJson(res, 200, { message })
+    parseHistoryGeneratorId(body)
+    const story = await fetchPortraitHistoryFromOpenAI(apiKey ?? '')
+    sendJson(res, 200, { story })
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Failed to fetch cat dialogue.'
+    const message =
+      error instanceof Error ? error.message : 'Failed to fetch portrait history.'
     sendJson(res, 500, { error: message })
   }
 }
 
-function attachCatChatMiddleware(
+function attachPortraitHistoryMiddleware(
   apiKey: string | undefined,
   middlewares: { use: ViteDevServer['middlewares']['use'] },
   logger?: { warn: (message: string) => void },
 ) {
   if (!apiKey && logger) {
-    logger.warn('[cat-chat] OPENAI_API_KEY is not configured. Cat dialogue will fail.')
+    logger.warn(
+      '[portrait-history] OPENAI_API_KEY is not configured. Portrait history will fail.',
+    )
   }
 
   middlewares.use((req, res, next) => {
-    if (!isCatChatRequest(req.url, req.method)) {
+    if (!isPortraitHistoryRequest(req.url, req.method)) {
       next()
       return
     }
 
-    void handleCatChatRequest(apiKey, req, res)
+    void handlePortraitHistoryRequest(apiKey, req, res)
   })
 }
 
-export function catChatApiPlugin(apiKey: string | undefined): Plugin {
+export function portraitHistoryApiPlugin(apiKey: string | undefined): Plugin {
   return {
-    name: 'cat-chat-api',
+    name: 'portrait-history-api',
     configureServer(server) {
-      attachCatChatMiddleware(apiKey, server.middlewares, server.config.logger)
+      attachPortraitHistoryMiddleware(apiKey, server.middlewares, server.config.logger)
     },
     configurePreviewServer(server: PreviewServer) {
-      attachCatChatMiddleware(apiKey, server.middlewares, server.config.logger)
+      attachPortraitHistoryMiddleware(apiKey, server.middlewares, server.config.logger)
     },
   }
 }

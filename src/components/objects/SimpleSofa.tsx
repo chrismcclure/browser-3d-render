@@ -1,4 +1,6 @@
 import BoxObject from '../primitives/BoxObject'
+import ObjectDebugLabel from '../debug/ObjectDebugLabel'
+import type { DebugNameProps } from '../../types/debug'
 
 const ARM_WIDTH = 0.7
 const BASE_HEIGHT = 0.4
@@ -6,7 +8,7 @@ const CUSHION_HEIGHT = 0.25
 const BACK_THICKNESS = 0.45
 const CUSHION_GAP = 0.1
 
-type SimpleSofaProps = {
+type SimpleSofaProps = DebugNameProps & {
   position?: [number, number, number]
   width?: number
   depth?: number
@@ -16,6 +18,7 @@ type SimpleSofaProps = {
 }
 
 export default function SimpleSofa({
+  debugName,
   position = [0, 0, 0],
   width = 8,
   depth = 3.5,
@@ -86,6 +89,7 @@ export default function SimpleSofa({
           BACK_THICKNESS / 2 + 0.1,
         ]}
       />
+      <ObjectDebugLabel name={debugName} offset={[0, height + 0.25, 0]} />
     </group>
   )
 }

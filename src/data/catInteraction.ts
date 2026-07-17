@@ -1,15 +1,41 @@
 import { livingRoomLayout } from '../layouts/livingRoomLayout'
 
+export const CAT_SPIN_KEY = 'F'
+export const CAT_SPIN_KEY_CODE = 'KeyF'
+
+export const CAT_LEG_RAISE_KEY = 'X'
+export const CAT_LEG_RAISE_KEY_CODE = 'KeyX'
+
 export const CAT_INTERACTION_PROMPT = 'Press E to talk to Professor Spaghettio'
+
+export function getCatInteractionPrompt(): string {
+  return `Press E to talk\nPress ${CAT_SPIN_KEY} to make Professor Spaghettio spin\nPress ${CAT_LEG_RAISE_KEY} to stretch`
+}
 
 export const CAT_CHAT_ERROR_PREFIX = 'Professor Spaghettio flicks his tail and refuses to speak:'
 
-export const CAT_INTERACTION_RADIUS = 2.75
+export const CAT_INTERACTION_RADIUS = 4
 
 const [catX, , catZ] = livingRoomLayout.leftChairCat.position
+const [chairX, , chairZ] = livingRoomLayout.armchairs[0].position
+
+function isWithinRadius(
+  playerX: number,
+  playerZ: number,
+  targetX: number,
+  targetZ: number,
+  radius: number,
+): boolean {
+  const dx = playerX - targetX
+  const dz = playerZ - targetZ
+  return dx * dx + dz * dz <= radius * radius
+}
 
 export function isPlayerNearCat(playerX: number, playerZ: number): boolean {
-  const dx = playerX - catX
-  const dz = playerZ - catZ
-  return dx * dx + dz * dz <= CAT_INTERACTION_RADIUS * CAT_INTERACTION_RADIUS
+  const radius = CAT_INTERACTION_RADIUS
+
+  return (
+    isWithinRadius(playerX, playerZ, catX, catZ, radius) ||
+    isWithinRadius(playerX, playerZ, chairX, chairZ, radius)
+  )
 }

@@ -12,12 +12,17 @@ import {
 import {
   DEFAULT_PLAYER_SPAWN_POSITION,
   DEFAULT_PLAYER_SPAWN_YAW,
+  PLAYER_CROUCH_EYE_HEIGHT,
   PLAYER_EYE_HEIGHT,
 } from '../../data/playerSpawn'
 import { moveWithCollision, type CollisionBox } from '../../utils/collision'
 
 const MOVE_SPEED = 4
 const DAMPING = 12
+const CROUCH_TRANSITION_RATE = 14
+const CROUCH_KEY_CODE = 'KeyZ'
+
+type PlayerStance = 'standing' | 'crouched'
 
 type FirstPersonControllerProps = {
   initialPosition?: [number, number, number]
@@ -62,10 +67,14 @@ export default function FirstPersonController({
   const moveDirection = useRef(new Vector3())
   const targetVelocity = useRef(new Vector3())
   const lookDirection = useRef(new Vector3())
+  const stanceRef = useRef<PlayerStance>('standing')
+  const eyeHeightRef = useRef(PLAYER_EYE_HEIGHT)
 
   useLayoutEffect(() => {
     camera.position.set(...initialPosition)
     camera.rotation.set(0, initialYaw, 0)
+    stanceRef.current = 'standing'
+    eyeHeightRef.current = PLAYER_EYE_HEIGHT
   }, [camera, initialPosition, initialYaw])
 
   useEffect(() => {
@@ -80,7 +89,23 @@ export default function FirstPersonController({
       }
     }
 
-    const onKeyDown = (event: KeyboardEvent) => setKey(event, true)
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (!controlsEnabled) {
+        return
+      }
+
+      if (event.code === CROUCH_KEY_CODE) {
+        if (event.repeat) {
+          return
+        }
+
+        stanceRef.current =
+          stanceRef.current === 'standing' ? 'crouched' : 'standing'
+        return
+      }
+
+      setKey(event, true)
+    }
     const onKeyUp = (event: KeyboardEvent) => setKey(event, false)
 
     window.addEventListener('keydown', onKeyDown)
@@ -107,6 +132,15 @@ export default function FirstPersonController({
 
   useFrame((_, delta) => {
     const isLocked = controlsEnabled && (controlsRef.current?.isLocked ?? false)
+    const targetEyeHeight =
+      stanceRef.current === 'crouched'
+        ? PLAYER_CROUCH_EYE_HEIGHT
+        : PLAYER_EYE_HEIGHT
+
+    eyeHeightRef.current +=
+      (targetEyeHeight - eyeHeightRef.current) *
+      (1 - Math.exp(-CROUCH_TRANSITION_RATE * delta))
+    camera.position.y = eyeHeightRef.current
 
     if (isLocked) {
       camera.getWorldDirection(forward.current)
@@ -147,7 +181,6 @@ export default function FirstPersonController({
 
       camera.position.x = resolved.x
       camera.position.z = resolved.z
-      camera.position.y = PLAYER_EYE_HEIGHT
     } else {
       velocity.current.set(0, 0, 0)
     }
